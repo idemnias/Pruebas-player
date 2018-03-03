@@ -42,17 +42,7 @@ public class PlayerController : MonoBehaviour {
 
 
         if (!grounded) return;
-        //para el movimiento derecha izquierda
-        float move = Input.GetAxis ("Horizontal");
-
-        anim.SetFloat("Speed", Mathf.Abs(move));
-
-        rigidbody2D.velocity = new Vector2(move * maxSpeed, rigidbody2D.velocity.y);
-
-        if (move > 0 && !facingRight)
-            Flip();
-        else if (move < 0 && facingRight)
-            Flip();
+        
     }
 
     void Update()
@@ -68,6 +58,17 @@ public class PlayerController : MonoBehaviour {
                 doubleJump = true;
 
         }
+        //para el movimiento derecha izquierda
+        float move = Input.GetAxis("Horizontal");
+
+        anim.SetFloat("Speed", Mathf.Abs(move));
+
+        rigidbody2D.velocity = new Vector2(move * maxSpeed, rigidbody2D.velocity.y);
+
+        if (move > 0 && !facingRight)
+            Flip();
+        else if (move < 0 && facingRight)
+            Flip();
     }
 
     //cambio de sentido
