@@ -23,7 +23,9 @@ public class PlayerController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        //para el movimiento
         rigidbody2D = GetComponent<Rigidbody2D>();
+        //para la animacion
         anim = GetComponent<Animator>();
 	}
 	
