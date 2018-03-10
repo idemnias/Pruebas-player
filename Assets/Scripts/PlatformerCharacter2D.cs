@@ -22,11 +22,13 @@ namespace UnityStandardAssets._2D
 
         private bool attack; // para atacar
 
+        private bool attackthrow; //tirar daga
+
         private bool slide; // deslizarse
 
         private bool jump; // saltar
 
-        private bool jumpAttack; // atacar saltando
+        private bool jumpAttack;// atacar saltando
 
         private void Awake()
         {
@@ -55,7 +57,11 @@ namespace UnityStandardAssets._2D
             for (int i = 0; i < colliders.Length; i++)
             {
                 if (colliders[i].gameObject != gameObject)
+                {
                     Grounded = true;
+                    Anim.ResetTrigger("jumpAttack");
+                }
+                    
             }
             Anim.SetBool("Ground", Grounded);
 
@@ -132,9 +138,14 @@ namespace UnityStandardAssets._2D
                 Anim.SetTrigger("attack");
                 myrigidbody2D.velocity = Vector2.zero;
             }
-            else if (attack && !this.Anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack")&&!Grounded)
+            else if (jumpAttack && !this.Anim.GetCurrentAnimatorStateInfo(0).IsName("Jump_Attack") &&!Grounded)
             {
                 Anim.SetTrigger("jumpAttack");
+                //myrigidbody2D.velocity = Vector2.zero;
+            }
+            else if (attackthrow && !this.Anim.GetCurrentAnimatorStateInfo(0).IsName("Throw") && Grounded)
+            {
+                Anim.SetTrigger("throw");
                 myrigidbody2D.velocity = Vector2.zero;
             }
         }
@@ -144,10 +155,15 @@ namespace UnityStandardAssets._2D
             if (Input.GetKeyDown(KeyCode.LeftShift))
             {
                 attack = true;
+                jumpAttack = true;
             }
             if (Input.GetKeyDown(KeyCode.LeftAlt))
             {
                 slide = true;
+            }
+            if (Input.GetKeyDown(KeyCode.V))
+            {
+                attackthrow = true;
             }
         }        
 
@@ -168,6 +184,7 @@ namespace UnityStandardAssets._2D
             slide = false;
             jump = false;
             jumpAttack = false;
+            attackthrow = false;
         }
     }
 }
