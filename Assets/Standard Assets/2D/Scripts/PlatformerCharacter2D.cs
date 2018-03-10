@@ -29,7 +29,6 @@ namespace UnityStandardAssets._2D
             m_Rigidbody2D = GetComponent<Rigidbody2D>();
         }
 
-
         private void FixedUpdate()
         {
             m_Grounded = false;
@@ -89,6 +88,9 @@ namespace UnityStandardAssets._2D
                     Flip();
                 }
             }
+
+            
+
             // If the player should jump...
             if (m_Grounded && jump && m_Anim.GetBool("Ground"))
             {
@@ -98,7 +100,6 @@ namespace UnityStandardAssets._2D
                 m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
             }
         }
-
 
         private void Flip()
         {
