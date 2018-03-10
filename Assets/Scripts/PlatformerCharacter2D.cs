@@ -19,7 +19,14 @@ namespace UnityStandardAssets._2D
         private Animator Anim;            // Reference to the player's animator component.
         private Rigidbody2D myrigidbody2D;
         private bool FacingRight = true;  // For determining which way the player is currently facing.
-        private bool attack;
+
+        private bool attack; // para atacar
+
+        private bool slide; // deslizarse
+
+        private bool jump; // saltar
+
+        private bool jumpAttack; // atacar saltando
 
         private void Awake()
         {
@@ -75,7 +82,7 @@ namespace UnityStandardAssets._2D
             //m_Anim.SetBool("Crouch", crouch);
 
             //only control the player if grounded or airControl is turned on
-            if ((Grounded || m_AirControl)&& !this.Anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
+            if ((!Anim.GetBool("slide") && Grounded || m_AirControl)&& !this.Anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
             {
                 // Reduce the speed if crouching by the crouchSpeed multiplier
                 move = (crouch ? move*m_CrouchSpeed : move );
@@ -99,6 +106,14 @@ namespace UnityStandardAssets._2D
                     Flip();
                 }
             }
+            if ((slide) && !this.Anim.GetCurrentAnimatorStateInfo(0).IsTag("Slide"))
+            {
+                Anim.SetBool("slide", true);
+            }
+            else if (!Anim.GetCurrentAnimatorStateInfo(0).IsName("Slide"))
+            {
+                Anim.SetBool("slide", false);
+            }
             // If the player should jump...
             if (Grounded && jump && Anim.GetBool("Ground"))
             {
@@ -107,13 +122,19 @@ namespace UnityStandardAssets._2D
                 Anim.SetBool("Ground", false);
                 myrigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
             }
+            
         }
 
         private void HandleAttacks()
         {
-            if (attack && !this.Anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
+            if (attack && !this.Anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack") && Grounded)
             {
                 Anim.SetTrigger("attack");
+                myrigidbody2D.velocity = Vector2.zero;
+            }
+            else if (attack && !this.Anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack")&&!Grounded)
+            {
+                Anim.SetTrigger("jumpAttack");
                 myrigidbody2D.velocity = Vector2.zero;
             }
         }
@@ -124,12 +145,11 @@ namespace UnityStandardAssets._2D
             {
                 attack = true;
             }
-        }
-        
-        private void ResetValues()
-        {
-            attack = false;
-        }
+            if (Input.GetKeyDown(KeyCode.LeftAlt))
+            {
+                slide = true;
+            }
+        }        
 
         private void Flip()
         {
@@ -140,6 +160,14 @@ namespace UnityStandardAssets._2D
             Vector3 theScale = transform.localScale;
             theScale.x *= -1;
             transform.localScale = theScale;
+        }
+
+        private void ResetValues()
+        {
+            attack = false;
+            slide = false;
+            jump = false;
+            jumpAttack = false;
         }
     }
 }
