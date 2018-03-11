@@ -39,15 +39,21 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: Objets
-    uniqueID: 1113390129
+  - name: Background
+    uniqueID: 2018620621
     locked: 0
-  - name: Default
-    uniqueID: 0
+  - name: LastForeGround
+    uniqueID: 2832773615
     locked: 0
   - name: Foreground
     uniqueID: 408905249
     locked: 0
-  - name: Background
-    uniqueID: 2018620621
+  - name: ground
+    uniqueID: 4070273435
+    locked: 0
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Objets
+    uniqueID: 1113390129
     locked: 0

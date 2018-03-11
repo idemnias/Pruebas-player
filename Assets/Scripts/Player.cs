@@ -111,7 +111,7 @@ namespace UnityStandardAssets._2D
             {
                 Anim.SetBool("slide", true);
             }
-            else if (!Anim.GetCurrentAnimatorStateInfo(0).IsName("Slide"))
+            else if (!Anim.GetCurrentAnimatorStateInfo(0).IsTag("Slide"))
             {
                 Anim.SetBool("slide", false);
             }
@@ -138,7 +138,7 @@ namespace UnityStandardAssets._2D
                 Anim.SetTrigger("jumpAttack");
                 //myrigidbody2D.velocity = Vector2.zero;
             }
-            else if (attackthrow && !this.Anim.GetCurrentAnimatorStateInfo(0).IsName("Throw") && Grounded)
+            else if (attackthrow && !this.Anim.GetCurrentAnimatorStateInfo(0).IsTag("Throw") && Grounded)
             {
                 Anim.SetTrigger("throw");
                 myrigidbody2D.velocity = Vector2.zero;
