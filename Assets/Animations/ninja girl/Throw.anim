@@ -20,29 +20,29 @@ AnimationClip:
   - curve:
     - time: 0
       value: {fileID: 21300000, guid: 49c1d832bb88ac9448d538ca42942cfb, type: 3}
-    - time: 0.06666667
+    - time: 0.028571429
       value: {fileID: 21300000, guid: 89b0aba7540677047961fc86f01302ee, type: 3}
-    - time: 0.13333334
+    - time: 0.057142857
       value: {fileID: 21300000, guid: e1aeff48497cf404d946c7cfe952fdc9, type: 3}
-    - time: 0.2
+    - time: 0.08571429
       value: {fileID: 21300000, guid: e1aeff48497cf404d946c7cfe952fdc9, type: 3}
-    - time: 0.26666668
+    - time: 0.114285715
       value: {fileID: 21300000, guid: d263ff487714d3341b68c4881b58f5d3, type: 3}
-    - time: 0.33333334
+    - time: 0.14285715
       value: {fileID: 21300000, guid: 79a5b61ef9bb75242a70763f6eb4571d, type: 3}
-    - time: 0.4
+    - time: 0.17142858
       value: {fileID: 21300000, guid: 4f2c75935eb132148b9fdc93cddf6849, type: 3}
-    - time: 0.46666667
+    - time: 0.2
       value: {fileID: 21300000, guid: b3010355c711352489fff5906f65906d, type: 3}
-    - time: 0.53333336
+    - time: 0.22857143
       value: {fileID: 21300000, guid: a56cee2cd64ed6742aab50828985b494, type: 3}
-    - time: 0.6
+    - time: 0.25714287
       value: {fileID: 21300000, guid: 97a33188228a629498ff1272252b6498, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
     script: {fileID: 0}
-  m_SampleRate: 15
+  m_SampleRate: 35
   m_WrapMode: 0
   m_Bounds:
     m_Center: {x: 0, y: 0, z: 0}
@@ -72,7 +72,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.6666667
+    m_StopTime: 0.2857143
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -96,8 +96,7 @@ AnimationClip:
   - time: 0.2
     functionName: ThrowKnive
     data: 
-    objectReferenceParameter: {fileID: 1132755094008392, guid: 7c7f5f670f523394f95e7ce05af1bc8e,
-      type: 2}
-    floatParameter: 15
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
     intParameter: 0
     messageOptions: 0
