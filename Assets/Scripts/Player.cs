@@ -5,19 +5,6 @@ namespace UnityStandardAssets._2D
 {
     public class Player : MonoBehaviour
     {
-        //private static Player instance;
-
-        //public static Player Instance
-        //{
-        //    get
-        //    {
-        //        if(instance == null)
-        //        {
-        //            instance = GameObject.FindObjectOfType<Player>();
-        //        }
-        //        return instance;
-        //    }
-        //}
 
         [SerializeField] private float m_MaxSpeed = 10f;                    // The fastest the player can travel in the x axis.
         [SerializeField] private float m_JumpForce = 400f;                  // Amount of force added when the player jumps.
@@ -94,18 +81,6 @@ namespace UnityStandardAssets._2D
 
         public void Move(float move, bool crouch, bool jump)
         {
-            // If crouching, check to see if the character can stand up
-            //if (!crouch && m_Anim.GetBool("Crouch"))
-            //{
-            //    If the character has a ceiling preventing them from standing up, keep them crouching
-            //    if (Physics2D.OverlapCircle(m_CeilingCheck.position, k_CeilingRadius, m_WhatIsGround))
-            //    {
-            //        crouch = true;
-            //    }
-            //}
-
-            //Set whether or not the character is crouching in the animator
-            //m_Anim.SetBool("Crouch", crouch);
 
             //only control the player if grounded or airControl is turned on
             if ((!Anim.GetBool("slide") && Grounded || m_AirControl)&& !this.Anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
@@ -222,9 +197,29 @@ namespace UnityStandardAssets._2D
         {
             attack = false;
             slide = false;
-            jump = false;
+
             jumpAttack = false;
             attackthrow = false;
         }
+
+        //private void OnCollisionEnter2D(Collision2D collision)
+        //{
+        //    if(collision.transform.tag== "MovingPlataform")
+        //    {
+        //        collision.collider.transform.SetParent(transform);
+        //    }
+        //}
+
+        //private void OnCollisionExit2D(Collision2D collision)
+        //{
+        //    if (collision.transform.tag == "MovingPlataform")
+        //    {
+        //        transform.parent = null;
+        //    }
+        //}
+
+
+
+
     }
 }
