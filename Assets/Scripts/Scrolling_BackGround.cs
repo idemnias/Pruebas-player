@@ -7,6 +7,7 @@ public class Scrolling_BackGround : MonoBehaviour {
     public float backgroundSize;
     public float paralaxSpeed;
 
+
     private Transform cameraTransform;
     private Transform[] layers;
     private float viewZone = 10;
@@ -16,7 +17,6 @@ public class Scrolling_BackGround : MonoBehaviour {
 
     void Start()
     {
-
         cameraTransform = Camera.main.transform;
         lastCameraX = cameraTransform.position.x;
         layers = new Transform[transform.childCount];
@@ -35,16 +35,16 @@ public class Scrolling_BackGround : MonoBehaviour {
             transform.position += Vector3.right * (deltaX * paralaxSpeed);
             lastCameraX = cameraTransform.position.x;
 
-            if (cameraTransform.position.x < (layers[leftIndex].transform.position.x + viewZone)) ;
+            if (cameraTransform.position.x < (layers[leftIndex].transform.position.x + viewZone))
             ScrollLeft();
 
-            if (cameraTransform.position.x > (layers[rightIndex].transform.position.x + viewZone)) ;
+            if (cameraTransform.position.x > (layers[rightIndex].transform.position.x + viewZone))
             ScrollRight();
 
 
     }
 
-    private void ScrollRight()
+    private void ScrollLeft()
     {
         int lastRight = rightIndex;
         layers[lastRight].position = Vector3.right * (layers[leftIndex].position.x - backgroundSize);
@@ -54,10 +54,10 @@ public class Scrolling_BackGround : MonoBehaviour {
             rightIndex = layers.Length - 1;
 
     }
-    private void ScrollLeft()
+    private void ScrollRight()
     {
         int lastleft = leftIndex;
-        layers[lastleft].position = Vector3.right * (layers[rightIndex].position.x - backgroundSize);
+        layers[lastleft].position = Vector3.right * (layers[rightIndex].position.x + backgroundSize);
         rightIndex = leftIndex;
         leftIndex++;
         if (leftIndex < 0)

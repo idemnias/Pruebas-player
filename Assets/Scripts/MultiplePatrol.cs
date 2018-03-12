@@ -6,9 +6,6 @@ public class MultiplePatrol : MonoBehaviour {
 
     public GameObject plataform;
 
-    [SerializeField]
-    private Transform childTransform;
-
     public float moveSpeed;
 
     public Transform currentPoint;
@@ -41,32 +38,15 @@ public class MultiplePatrol : MonoBehaviour {
 
     private void OnDrawGizmos()
     {
+        //Gizmos.DrawLine(points[0].position, points[points.Length-1].position);
         for (int i = 0; i < points.Length; i++)
         {
-            if (i!=points.Length-1)
+            if (i == points.Length - 1)
             {
-                Gizmos.DrawLine(points[i].position, points[i].position);
+                Gizmos.DrawLine(points[i].position, points[0].position);
             }
-            
+            else { Gizmos.DrawLine(points[i].position, points[i + 1].position); }           
         }
-        
-    }
-
-    private void OnCollisionEnter2D(Collision2D other)
-    {
-        if (other.gameObject.tag == "Player")
-        {
-            other.transform.SetParent(transform);
-        }
-    }
-
-    private void OnCollisionExit2D(Collision2D other)
-    {
-        if (other.gameObject.tag == "Player")
-        {
-            other.transform.SetParent(null);
-        }
-        
     }
 
 }
