@@ -66,9 +66,7 @@ namespace UnityStandardAssets._2D
                 if (colliders[i].gameObject != gameObject)
                 {
                     Grounded = true;
-                    Anim.ResetTrigger("jumpAttack");
-                }
-                    
+                }                  
             }
             Anim.SetBool("Ground", Grounded);
 
@@ -159,7 +157,6 @@ namespace UnityStandardAssets._2D
             if (Input.GetKeyDown(KeyCode.H))
             {
                 Anim.SetTrigger("throw");
-
             }
         }        
 
@@ -197,7 +194,6 @@ namespace UnityStandardAssets._2D
         {
             attack = false;
             slide = false;
-
             jumpAttack = false;
             attackthrow = false;
         }
