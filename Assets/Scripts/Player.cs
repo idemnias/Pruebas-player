@@ -82,7 +82,7 @@ namespace UnityStandardAssets._2D
         {
 
             //only control the player if grounded or airControl is turned on
-            if ((!Anim.GetBool("slide") && Grounded || AirControl)&& !this.Anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
+            if ((!Anim.GetBool("slide") && Grounded || AirControl)&& !this.Anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack")&& !this.Anim.GetCurrentAnimatorStateInfo(0).IsName("Slide"))
             {
                 // Reduce the speed if crouching by the crouchSpeed multiplier
                 move = (crouch ? move* CrouchSpeed : move );
