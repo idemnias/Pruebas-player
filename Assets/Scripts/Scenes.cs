@@ -9,6 +9,10 @@ public class Scenes : MonoBehaviour {
     {
         SceneManager.LoadScene("Game");
     }
+    public void LoadMenu()
+    {
+        SceneManager.LoadScene("Menu");
+    }
     public void Salir()
     {
         Application.Quit();
