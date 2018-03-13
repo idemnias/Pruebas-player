@@ -6,11 +6,11 @@ namespace UnityStandardAssets._2D
     public class Player : MonoBehaviour
     {
 
-        [SerializeField] private float m_MaxSpeed = 10f;                    // The fastest the player can travel in the x axis.
-        [SerializeField] private float m_JumpForce = 400f;                  // Amount of force added when the player jumps.
-        [Range(0, 1)] [SerializeField] private float m_CrouchSpeed = .36f;  // Amount of maxSpeed applied to crouching movement. 1 = 100%
-        [SerializeField] private bool m_AirControl = false;                 // Whether or not a player can steer while jumping;
-        [SerializeField] private LayerMask m_WhatIsGround;                  // A mask determining what is ground to the character
+        [SerializeField] private float MaxSpeed = 10f;                    // The fastest the player can travel in the x axis.
+        [SerializeField] private float JumpForce = 400f;                  // Amount of force added when the player jumps.
+        [Range(0, 1)] [SerializeField] private float CrouchSpeed = .36f;  // Amount of maxSpeed applied to crouching movement. 1 = 100%
+        [SerializeField] private bool AirControl = false;                 // Whether or not a player can steer while jumping;
+        [SerializeField] private LayerMask WhatIsGround;                  // A mask determining what is ground to the character
 
         private Transform GroundCheck;    // A position marking where to check if the player is grounded.
         const float GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
@@ -33,7 +33,6 @@ namespace UnityStandardAssets._2D
 
         private bool attack; // para atacar
         private bool attackthrow; //tirar daga
-        private bool jumpAttack;// atacar saltando
 
 /*AWAKE*/
         private void Awake()
@@ -60,7 +59,7 @@ namespace UnityStandardAssets._2D
            
             // The player is grounded if a circlecast to the groundcheck position hits anything designated as ground
             // This can be done using layers instead but Sample Assets will not overwrite your project settings.
-            Collider2D[] colliders = Physics2D.OverlapCircleAll(GroundCheck.position, GroundedRadius, m_WhatIsGround);
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(GroundCheck.position, GroundedRadius, WhatIsGround);
             for (int i = 0; i < colliders.Length; i++)
             {
                 if (colliders[i].gameObject != gameObject)
@@ -81,16 +80,16 @@ namespace UnityStandardAssets._2D
         {
 
             //only control the player if grounded or airControl is turned on
-            if ((!Anim.GetBool("slide") && Grounded || m_AirControl)&& !this.Anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
+            if ((!Anim.GetBool("slide") && Grounded || AirControl)&& !this.Anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
             {
                 // Reduce the speed if crouching by the crouchSpeed multiplier
-                move = (crouch ? move*m_CrouchSpeed : move );
+                move = (crouch ? move* CrouchSpeed : move );
 
                 // The Speed animator parameter is set to the absolute value of the horizontal input.
                 Anim.SetFloat("Speed", Mathf.Abs(move));
 
                 // Move the character
-                myrigidbody2D.velocity = new Vector2(move*m_MaxSpeed, myrigidbody2D.velocity.y);
+                myrigidbody2D.velocity = new Vector2(move*MaxSpeed, myrigidbody2D.velocity.y);
 
                 // If the input is moving the player right and the player is facing left...
                 if (move > 0 && !FacingRight)
@@ -119,9 +118,9 @@ namespace UnityStandardAssets._2D
                 // Add a vertical force to the player.
                 Grounded = false;
                 Anim.SetBool("Ground", false);
-                myrigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
+                myrigidbody2D.AddForce(new Vector2(0f, JumpForce));
             }
-            
+
         }
 
 /*ACCION*/
@@ -132,9 +131,9 @@ namespace UnityStandardAssets._2D
                 Anim.SetTrigger("attack");
                 myrigidbody2D.velocity = Vector2.zero;
             }
-            else if (jumpAttack && !this.Anim.GetCurrentAnimatorStateInfo(0).IsName("Jump_Attack") &&!Grounded)
+            else if (attack && !this.Anim.GetCurrentAnimatorStateInfo(0).IsName("Jump_Attack") && !Grounded)
             {
-                Anim.SetTrigger("jumpAttack");
+                Anim.SetTrigger("attack");
                 //myrigidbody2D.velocity = Vector2.zero;
             }
             else if (attackthrow && !this.Anim.GetCurrentAnimatorStateInfo(0).IsTag("Throw") && Grounded)
@@ -142,6 +141,7 @@ namespace UnityStandardAssets._2D
                 Anim.SetTrigger("throw");
                 myrigidbody2D.velocity = Vector2.zero;
             }
+            else { }
         }
 
 /*CUANDO ACCIONAS UNA TECLA*/
@@ -150,7 +150,6 @@ namespace UnityStandardAssets._2D
             if (Input.GetKeyDown(KeyCode.J))
             {
                 attack = true;
-                jumpAttack = true;
             }
             if (Input.GetKeyDown(KeyCode.G))
             {
@@ -158,7 +157,8 @@ namespace UnityStandardAssets._2D
             }
             if (Input.GetKeyDown(KeyCode.H))
             {
-                Anim.SetTrigger("throw");
+                //Anim.SetTrigger("throw");
+                attackthrow = true;
             }
         }        
 
@@ -198,7 +198,6 @@ namespace UnityStandardAssets._2D
         {
             attack = false;
             slide = false;
-            jumpAttack = false;
             attackthrow = false;
         }
 
