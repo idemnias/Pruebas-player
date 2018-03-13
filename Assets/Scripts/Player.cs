@@ -29,6 +29,8 @@ namespace UnityStandardAssets._2D
         [SerializeField]
         private Transform knifePosition; //posicion del cuchillo;
         [SerializeField]
+        private Transform knifePositionjumping; //posicion del cuchillo;
+        [SerializeField]
         private GameObject knifePrefab; //tirar cuchillo
 
         private bool attack; // para atacar
@@ -141,6 +143,11 @@ namespace UnityStandardAssets._2D
                 Anim.SetTrigger("throw");
                 myrigidbody2D.velocity = Vector2.zero;
             }
+            else if (attackthrow && !this.Anim.GetCurrentAnimatorStateInfo(0).IsName("Jump_Throw") && !Grounded)
+            {
+                Anim.SetTrigger("throw");
+                //myrigidbody2D.velocity = Vector2.zero;
+            }
             else { }
         }
 
@@ -177,7 +184,7 @@ namespace UnityStandardAssets._2D
 /*TIRAR CUCHILLO*/
         public void ThrowKnive(int value)
         {
-            if(!Grounded && value == 1 || Grounded && value == 0)
+            if(Grounded && value == 0)
             {
                 if (FacingRight)
                 {
@@ -187,6 +194,19 @@ namespace UnityStandardAssets._2D
                 else
                 {
                     GameObject aux = (GameObject)Instantiate(knifePrefab, knifePosition.position, Quaternion.Euler(new Vector3(0, 0, 180)));
+                    aux.GetComponent<Knife>().Initialize(Vector2.left);
+                }
+            }
+            else
+            {
+                if (FacingRight)
+                {
+                    GameObject aux = (GameObject)Instantiate(knifePrefab, knifePositionjumping.position, Quaternion.Euler(new Vector3(0, 0, 0)));
+                    aux.GetComponent<Knife>().Initialize(Vector2.right);
+                }
+                else
+                {
+                    GameObject aux = (GameObject)Instantiate(knifePrefab, knifePositionjumping.position, Quaternion.Euler(new Vector3(0, 0, 180)));
                     aux.GetComponent<Knife>().Initialize(Vector2.left);
                 }
             }
