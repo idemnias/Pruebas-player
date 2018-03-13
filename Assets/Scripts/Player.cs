@@ -21,22 +21,21 @@ namespace UnityStandardAssets._2D
         private Rigidbody2D myrigidbody2D;
         private bool FacingRight = true;  // For determining which way the player is currently facing.
 
+/*MOVIMIENTO*/ 
+        private bool slide; // deslizarse
+        private bool jump; // saltar
+
+/*ATAQUES*/
         [SerializeField]
         private Transform knifePosition; //posicion del cuchillo;
-
         [SerializeField]
         private GameObject knifePrefab; //tirar cuchillo
 
         private bool attack; // para atacar
-
         private bool attackthrow; //tirar daga
-
-        private bool slide; // deslizarse
-
-        private bool jump; // saltar
-
         private bool jumpAttack;// atacar saltando
 
+/*AWAKE*/
         private void Awake()
         {
             // Setting up references.
@@ -45,12 +44,13 @@ namespace UnityStandardAssets._2D
             Anim = GetComponent<Animator>();
             myrigidbody2D = GetComponent<Rigidbody2D>();
         }
-
+        
+/*UPDATE*/
         void Update()
         {
             HandleInput();
         }
-
+/*FIXEDUPDATE*/
         private void FixedUpdate()
         {
             
@@ -76,7 +76,7 @@ namespace UnityStandardAssets._2D
             ResetValues();
         }
 
-
+/*MOVIMIENTO*/
         public void Move(float move, bool crouch, bool jump)
         {
 
@@ -124,6 +124,7 @@ namespace UnityStandardAssets._2D
             
         }
 
+/*ACCION*/
         private void HandleAttacks()
         {
             if (attack && !this.Anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack") && Grounded)
@@ -143,6 +144,7 @@ namespace UnityStandardAssets._2D
             }
         }
 
+/*CUANDO ACCIONAS UNA TECLA*/
         private void HandleInput()
         {
             if (Input.GetKeyDown(KeyCode.J))
@@ -160,6 +162,7 @@ namespace UnityStandardAssets._2D
             }
         }        
 
+/*ROTAR*/
         private void Flip()
         {
             // Switch the way the player is labelled as facing.
@@ -171,6 +174,7 @@ namespace UnityStandardAssets._2D
             transform.localScale = theScale;
         }
 
+/*TIRAR CUCHILLO*/
         public void ThrowKnive(int value)
         {
             if(!Grounded && value == 1 || Grounded && value == 0)
@@ -189,7 +193,7 @@ namespace UnityStandardAssets._2D
       
         }
 
-
+/*RESETEAR VALORES*/
         private void ResetValues()
         {
             attack = false;
@@ -197,25 +201,6 @@ namespace UnityStandardAssets._2D
             jumpAttack = false;
             attackthrow = false;
         }
-
-        //private void OnCollisionEnter2D(Collision2D collision)
-        //{
-        //    if(collision.transform.tag== "MovingPlataform")
-        //    {
-        //        collision.collider.transform.SetParent(transform);
-        //    }
-        //}
-
-        //private void OnCollisionExit2D(Collision2D collision)
-        //{
-        //    if (collision.transform.tag == "MovingPlataform")
-        //    {
-        //        transform.parent = null;
-        //    }
-        //}
-
-
-
 
     }
 }
