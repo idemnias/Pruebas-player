@@ -9,6 +9,7 @@ namespace UnityStandardAssets._2D
     {
         private Player myCharacter;
         private bool myJump;
+        
 
 
         private void Awake()

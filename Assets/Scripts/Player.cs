@@ -24,8 +24,9 @@ namespace UnityStandardAssets._2D
 /*MOVIMIENTO*/ 
         private bool slide; // deslizarse
         private bool jump; // saltar
+        private bool glide; // paracaidas
 
-/*ATAQUES*/
+        /*ATAQUES*/
         [SerializeField]
         private Transform knifePosition; //posicion del cuchillo;
         [SerializeField]
@@ -93,6 +94,21 @@ namespace UnityStandardAssets._2D
                 // Move the character
                 myrigidbody2D.velocity = new Vector2(move*MaxSpeed, myrigidbody2D.velocity.y);
 
+                if (glide)
+                {
+                    if (myrigidbody2D.velocity.y >= 0)
+                    {
+                        myrigidbody2D.velocity = new Vector2(move * MaxSpeed, 0);
+                    }
+                    Anim.SetBool("glide", true);
+                    myrigidbody2D.gravityScale = 0.2f;
+                }
+                else if (!glide)
+                {
+                    Anim.SetBool("glide", false);
+                    myrigidbody2D.gravityScale = 1;
+                }
+
                 // If the input is moving the player right and the player is facing left...
                 if (move > 0 && !FacingRight)
                 {
@@ -122,6 +138,7 @@ namespace UnityStandardAssets._2D
                 Anim.SetBool("Ground", false);
                 myrigidbody2D.AddForce(new Vector2(0f, JumpForce));
             }
+            
 
         }
 
@@ -166,6 +183,14 @@ namespace UnityStandardAssets._2D
             {
                 //Anim.SetTrigger("throw");
                 attackthrow = true;
+            }
+            if (Input.GetKeyDown(KeyCode.N))
+            {
+                glide = true;
+            }
+            if (Input.GetKeyUp(KeyCode.N))
+            {
+                glide = false;
             }
         }        
 
