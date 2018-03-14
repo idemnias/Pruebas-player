@@ -38,7 +38,7 @@ public class Scrolling_BackGround : MonoBehaviour {
             if (cameraTransform.position.x < (layers[leftIndex].transform.position.x + viewZone))
             ScrollLeft();
 
-            if (cameraTransform.position.x > (layers[rightIndex].transform.position.x + viewZone))
+            if (cameraTransform.position.x > (layers[rightIndex].transform.position.x - viewZone))
             ScrollRight();
 
 
@@ -47,7 +47,7 @@ public class Scrolling_BackGround : MonoBehaviour {
     private void ScrollLeft()
     {
         int lastRight = rightIndex;
-        layers[lastRight].position = Vector3.right * (layers[leftIndex].position.x - backgroundSize);
+        layers[rightIndex].position = Vector3.right * (layers[leftIndex].position.x - backgroundSize);
         leftIndex = rightIndex;
         rightIndex--;
         if (rightIndex < 0)
@@ -57,9 +57,9 @@ public class Scrolling_BackGround : MonoBehaviour {
     private void ScrollRight()
     {
         int lastleft = leftIndex;
-        layers[lastleft].position = Vector3.right * (layers[rightIndex].position.x + backgroundSize);
+        layers[leftIndex].position = Vector3.right * (layers[rightIndex].position.x + backgroundSize);
         rightIndex = leftIndex;
-        leftIndex++;
+        rightIndex--;
         if (leftIndex < 0)
             leftIndex = 0;
 
