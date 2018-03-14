@@ -1,28 +1,32 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour {
 
-    [SerializeField]
-    private Enemy enemy;
 
-    private void OnTriggerEnter2D(Collider2D other)
+    GameObject target;
+    NavMeshAgent agent;
+
+
+    void Awake()
     {
-        if (other.tag == "Player")
-        {
-            enemy.Target = other.gameObject;
-        }
-    }
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.tag == "Player")
-        {
-            enemy.Target = null;
-        }
+        agent = GetComponent<NavMeshAgent>();
+        target = GameObject.FindGameObjectWithTag("Player");
+        agent.SetDestination(target.transform.position);
     }
 
+    void Start()
+    {
+        
+       
+    }
 
 
-
+    void Update()
+    {
+        
+    }
 }
+
